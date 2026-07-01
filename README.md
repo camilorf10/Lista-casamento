@@ -1,5 +1,4 @@
-[index.html.html](https://github.com/user-attachments/files/29384190/index.html.html)
-# Lista-casamento<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -231,6 +230,7 @@
     letter-spacing: 0.5px;
     padding: 4px 10px;
     border-radius: 20px;
+    z-index: 2;
   }
 
   .card-img {
@@ -258,6 +258,25 @@
     font-size: 3rem;
     background: var(--champagne);
   }
+  .photo-upload-btn {
+    position: absolute;
+    bottom: 8px; right: 8px;
+    background: rgba(44,36,24,0.85);
+    color: var(--gold-light);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 3;
+    transition: background .2s;
+  }
+  .photo-upload-btn:hover { background: var(--deep); }
 
   .card-body {
     padding: 16px;
@@ -438,8 +457,144 @@
   footer p { font-size: 0.82rem; opacity: 0.6; line-height: 1.8; }
   footer strong { color: var(--gold-light); font-weight: 400; }
 
+  /* INFO BANNER */
+  .info-banner {
+    background: linear-gradient(180deg, #f5efe6 0%, #faf7f2 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 24px;
+  }
+  .info-banner-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .info-block {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: white;
+    border-radius: 14px;
+    padding: 20px 22px;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 12px rgba(44,36,24,0.05);
+  }
+  .info-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .info-text {
+    flex: 1;
+  }
+  .info-text strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 6px;
+  }
+  .info-text p {
+    font-size: 0.86rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .info-text em {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .store-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .store-badge {
+    background: var(--champagne);
+    color: var(--deep);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+
+  /* PIX CARDS */
+  .pix-cards {
+    display: flex;
+    gap: 14px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .pix-card {
+    flex: 1;
+    min-width: 200px;
+    background: linear-gradient(135deg, #2C2418 0%, #4A3820 100%);
+    border-radius: 14px;
+    padding: 18px 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .pix-card::before {
+    content: 'PIX';
+    position: absolute;
+    top: 12px; right: 16px;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    opacity: 0.7;
+    font-weight: 700;
+  }
+  .pix-label {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.8;
+    margin-bottom: 6px;
+  }
+  .pix-key {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .pix-name {
+    font-size: 0.8rem;
+    color: var(--champagne);
+    opacity: 0.85;
+    margin-bottom: 2px;
+  }
+  .pix-type {
+    font-size: 0.7rem;
+    color: var(--champagne);
+    opacity: 0.55;
+    margin-bottom: 14px;
+  }
+  .pix-copy-btn {
+    background: rgba(201,169,110,0.2);
+    border: 1px solid rgba(201,169,110,0.4);
+    color: var(--gold-light);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 0.78rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+    width: 100%;
+  }
+  .pix-copy-btn:hover { background: rgba(201,169,110,0.35); }
+  .pix-copy-btn.copied { background: var(--green-ok); border-color: var(--green-ok); color: white; }
+
   /* HIDDEN */
   .hidden { display: none !important; }
+  input[type="file"] { display: none; }
 </style>
 </head>
 <body>
@@ -452,6 +607,63 @@
   <div class="hero-divider"></div>
   <p class="hero-subtitle">Cada presente aqui foi escolhido com carinho por nós. Você pode comprar sozinho ou se juntar a outros convidados para dar um presente maior. ♡</p>
 </header>
+
+<!-- INFO BANNER -->
+<div class="info-banner">
+  <div class="info-banner-inner">
+
+    <div class="info-block info-tip">
+      <div class="info-icon">💡</div>
+      <div class="info-text">
+        <strong>Os links são sugestões, não obrigação!</strong>
+        <p>Os produtos listados aqui são referências do que gostaríamos de ganhar — o modelo, a cor e as especificações. Os links que colocamos são de onde encontramos por um bom preço, mas <em>fique à vontade para pesquisar em outras lojas!</em> Pode ser Magazine Luiza, Americanas, Mercado Livre, Amazon, Shopee ou qualquer outra. O que importa é o produto, não o site. 😊</p>
+      </div>
+    </div>
+
+    <div class="info-block info-stores">
+      <div class="info-icon">🛍️</div>
+      <div class="info-text">
+        <strong>Onde pesquisar o melhor preço?</strong>
+        <div class="store-badges">
+          <span class="store-badge">Mercado Livre</span>
+          <span class="store-badge">Amazon</span>
+          <span class="store-badge">Magazine Luiza</span>
+          <span class="store-badge">Americanas</span>
+          <span class="store-badge">Shopee</span>
+          <span class="store-badge">Casas Bahia</span>
+          <span class="store-badge">Fast Shop</span>
+          <span class="store-badge">Lojas físicas</span>
+        </div>
+        <p>Use sites como <strong>Zoom</strong> ou <strong>Buscapé</strong> para comparar preços entre lojas em tempo real!</p>
+      </div>
+    </div>
+
+    <div class="info-block info-pix">
+      <div class="info-icon">💚</div>
+      <div class="info-text">
+        <strong>Prefere presentear via Pix?</strong>
+        <p>Se preferir nos enviar o valor diretamente, fique à vontade! Assim compramos o item na hora e no melhor preço disponível. ♡</p>
+        <div class="pix-cards">
+          <div class="pix-card">
+            <div class="pix-label">Pix do Camilo</div>
+            <div class="pix-key">358.145.738-56</div>
+            <div class="pix-name">Camilo Ribeiro Fagundes</div>
+            <div class="pix-type">CPF</div>
+            <button class="pix-copy-btn" onclick="copyPix('358.145.738-56', this)">📋 Copiar chave</button>
+          </div>
+          <div class="pix-card">
+            <div class="pix-label">Pix da Itany</div>
+            <div class="pix-key">(18) 99789-2050</div>
+            <div class="pix-name">Itany Graziel Zanetti</div>
+            <div class="pix-type">Celular</div>
+            <button class="pix-copy-btn" onclick="copyPix('18997892050', this)">📋 Copiar chave</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- STATS BAR -->
 <div class="stats-bar">
@@ -482,6 +694,7 @@
   <button class="filter-btn" onclick="filterCat('cozinha', this)">🍳 Cozinha</button>
   <button class="filter-btn" onclick="filterCat('moveis', this)">🛋️ Móveis & Decoração</button>
   <button class="filter-btn" onclick="filterCat('cama_banho', this)">🛏️ Cama & Banho</button>
+  <button class="filter-btn" onclick="filterCat('organizacao', this)">🗄️ Organização</button>
   <button class="filter-btn" onclick="filterAvailable()">✨ Disponíveis</button>
 </div>
 
@@ -503,6 +716,7 @@
         <option value="cozinha">🍳 Cozinha</option>
         <option value="moveis">🛋️ Móveis & Decoração</option>
         <option value="cama_banho">🛏️ Cama & Banho</option>
+        <option value="organizacao">🗄️ Organização</option>
       </select>
       <input type="text" id="newOptions" placeholder="Opções disponíveis (ex: 127V/220V)" />
       <textarea id="newNote" placeholder="Observações (opcional)" class="full"></textarea>
@@ -513,213 +727,388 @@
 
 <footer>
   <p>Feito com ♡ para o casamento de <strong>Itany & Camilo</strong><br>
-  Para marcar um item como comprado ou para dividir o presente, use os botões em cada card.<br>
+  Para marcar um item como comprado, dividir o presente ou adicionar uma foto, use os botões em cada card.<br>
   <small>As informações são salvas automaticamente neste dispositivo.</small></p>
 </footer>
 
+<!-- Hidden file input used for manual photo upload -->
+<input type="file" id="photoUploadInput" accept="image/*">
+
 <script>
+// ===================== PIX COPY =====================
+function copyPix(key, btn) {
+  navigator.clipboard.writeText(key).then(() => {
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Copiar chave';
+      btn.classList.remove('copied');
+    }, 2500);
+  }).catch(() => {
+    prompt('Copie a chave Pix:', key);
+  });
+}
+
 // ===================== DATA =====================
-let gifts = JSON.parse(localStorage.getItem('wedding_gifts') || 'null') || [
-  // ── ELETRODOMÉSTICOS ──
+let gifts = JSON.parse(localStorage.getItem('wedding_gifts_v2') || 'null') || [
+  // ── COZINHA ──
   {
-    id: 1, cat: 'eletrodomesticos', name: 'Lava-Louças Midea SmartHome Black Inox 14 Serviços',
-    price: 'R$ 2.559,00', note: '9 programas de lavagem · Função Open Dry',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_962069-MLU74948869813_032024-F.webp',
-    links: [{ label: '🛒 Fast Shop', url: 'https://site.fastshop.com.br/lava-loucas-midea-smarthome-black-inox-com-14-servicos--09-programas-de-lavagem-e-funcao-open-dry---mdwef1433gbs-1qmdwef1433gb_prd/p' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 2, cat: 'eletrodomesticos', name: 'Lava-Louças Brastemp BLF10B 10 Serviços Inox',
-    price: 'R$ 2.839,00', note: '127V · Aço Inoxidável',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_639071-MLU74885479773_032024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/brastemp-blf10b-aco-inoxidavel-127v/p/MLB15927752' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 3, cat: 'eletrodomesticos', name: 'Lava-Louças Electrolux LS08E 8 Serviços Inox',
-    price: 'A consultar', note: 'Lava & Seca 50 min · Display Digital · 127V',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_736271-MLU75091099451_032024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/electrolux-lava-loucas-ls08e-prateado-127v/p/MLB49940241' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 4, cat: 'eletrodomesticos', name: 'Lava-Louças Midea 14 Serviços Preta',
-    price: 'R$ 2.900,00', note: 'Cor preta · Design elegante',
-    img: 'https://a-static.mlcdn.com.br/800x560/lava-loucas-14-servicos-preta-midea/magazineluiza/eh0aa5add5/81f67bcfd9e0f38e7d31e6f8d34d9a3d.jpg',
-    links: [{ label: '🛒 Magazine Luiza', url: 'https://www.magazineluiza.com.br/lava-loucas-14-servicos-preta-midea/p/eh0aa5add5/ed/l14s/' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 5, cat: 'eletronicos', name: 'Robô Aspirador (várias opções disponíveis)',
-    price: 'A consultar', note: 'Xiaomi S20 · Abir X9 · Liectroux G7 · Xiaomi Robot X20 Pro',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_985768-MLB54985574625_042023-F.webp',
-    links: [
-      { label: '🛒 Amazon', url: 'https://amzn.to/3NmPZP8' },
-      { label: '🛒 Mercado Livre', url: 'https://meli.la/1ykiknV' }
-    ],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 6, cat: 'moveis', name: 'Painel TV Ripado com Nichos – Bento Freijó Off White',
-    price: 'A consultar', note: 'Para TV até 60 pol · DJ Móveis · Ripado com nichos',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_948461-MLU75042619820_032024-F.webp',
-    links: [
-      { label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/painel-para-tv-ate-60-polegadas-ripado-com-nichos-dj-moveis-bento-freijo-off-white/p/MLB23340089' }
-    ],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 7, cat: 'moveis', name: 'Painel Suspenso TV 60 pol – Bento Freijó Off White DJ Móveis',
-    price: 'A consultar', note: 'Painel suspenso · DJ Móveis',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_948461-MLU75042619820_032024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/painel-suspenso-tv-60-pol-bento-freijo-off-white-dj-moveis/p/MLB53662388' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 8, cat: 'moveis', name: 'Painel TV Ripado com Nichos – Bento Freijó Cinza',
-    price: 'A consultar', note: 'Para TV até 60 pol · DJ Móveis · Cinza',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_947611-MLB72416741820_102023-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/painel-para-tv-ate-60-polegadas-ripado-com-nichos-dj-moveis-bento-freijo-cinza/p/MLB23351810' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 9, cat: 'moveis', name: 'Painel de TV Roma com Nicho Suspenso – Moderno',
-    price: 'A consultar', note: 'Suspenso · Design moderno para sala',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_831914-MLU74985099822_032024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://produto.mercadolivre.com.br/MLB-3643574907-painel-de-tv-roma-com-nicho-suspenso-para-sala-moderno-_JM' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 10, cat: 'moveis', name: 'Sofá para Sala',
-    price: 'A definir em loja', note: 'Iremos em lojas físicas para escolher o melhor modelo',
+    id: 1, cat: 'cozinha', name: 'Manteigueira Francesa Brisa 250g — Ouro Cobalto (Ceraflame)',
+    price: 'A consultar', note: 'Linha Ouro Cobalto · Ceraflame',
     img: '',
-    links: [],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 11, cat: 'cozinha', name: 'Jogo de Facas Tramontina Plenus 9 Peças Aço Inox Preto',
-    price: 'A consultar', note: 'Lâminas em aço inox · Cabos polipropileno preto',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_919201-MLB72474641869_102023-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/jogo-de-facas-plenus-9-pecas-com-lminas-em-aco-inox-e-cabos-de-polipropileno-cor-preto-tramontina/p/MLB27409895' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 12, cat: 'cozinha', name: 'Jogo de Facas Laguiole Inox com Cepo de Madeira 6 Peças Luxo',
-    price: 'A consultar', note: 'Cepo de madeira · La Tour · Preto',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_753041-MLU73285264516_122023-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/jogo-de-facas-laguiole-inox-com-cepo-de-madeira-6-pecas-luxo-preto-la-tour/p/MLB47795671' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 13, cat: 'eletrodomesticos', name: 'Batedeira Arno com Pedestal Movimento Planetário Preta',
-    price: 'A consultar', note: 'Cor preta · Movimento planetário',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_871074-MLU73406540673_122023-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/batedeira-arno-com-pedestal-movimento-planetario-preta-cor-preto/p/MLB58804100' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 14, cat: 'eletrodomesticos', name: 'Mixer Turbo 3 em 1 – 1000W 5 Velocidades Preto',
-    price: 'A consultar', note: '3 em 1 · 1000W · 5 velocidades',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_900824-MLU74938296774_032024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/mixer-turbo-3-em-1-1000w-5-velocidades-cor-preto/p/MLB66760336' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 15, cat: 'eletrodomesticos', name: 'Liquidificador Arno Power Max 1000 · 3.1L · 2200W · Preto',
-    price: 'A consultar', note: '15 velocidades · 3.1L · 2200W',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_720951-MLU75278700742_042024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/liquidificador-arno-power-max-1000-de-31-l-e-2200-w-com-15-velocidades-preto/p/MLB67008669' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 16, cat: 'eletrodomesticos', name: 'Liquidificador WAP WB2000 2L com Copo de Vidro · 1000W',
-    price: 'A consultar', note: '2L · Copo de vidro · Velocidade variável · 220V',
-    img: 'https://m.media-amazon.com/images/I/71m6XnKJkXL._AC_SX679_.jpg',
-    links: [{ label: '🛒 Amazon', url: 'https://www.amazon.com.br/WAP-Liquidificador-WB2000-Velocidade-Vari%C3%A1vel/dp/B0DCP6WMQH/' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 17, cat: 'eletrodomesticos', name: 'Ventilador de Mesa 40cm Arno X-Treme 7 Pás 150W',
-    price: 'A consultar', note: '40cm · 7 pás · 150W',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_942451-MLB74985099822_032024-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/ventilador-de-mesa-40cm-arno-x-treme-7-7-pas-150w-ve70/p/MLB28365895' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 18, cat: 'eletrodomesticos', name: 'Chaleira Elétrica Cadence CEL810 Pure Inox 1.7L',
-    price: 'A consultar', note: 'Inox · 1.7 litros',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_847671-MLB54985099822_042023-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/chaleira-eletrica-cadence-cel810-pure-inox-17-litros/p/MLB24163174' }],
-    bought: false, splitOpen: false, names: []
-  },
-  {
-    id: 19, cat: 'cozinha', name: 'Panelas de Cerâmica Ceraflame',
-    price: 'A consultar', note: 'Manteigueira Francesa Brisa 250g · Ouro Cobalto',
-    img: 'https://compreaqui.ceraflame.com.br/pub/media/catalog/product/cache/cba81df35bd94a5b83b79cc25be2eb85/S/E/SET-MANTEIGUEIRA-5011-AZUL-FOTO-1.jpg',
     links: [{ label: '🛒 Ceraflame', url: 'https://www.compreaqui.ceraflame.com.br/servir/manteigueira-francesa-brisa-250gr-01-ouro-cobalto' }],
     bought: false, splitOpen: false, names: []
   },
+  // ── ELETRODOMÉSTICOS — LAVA-LOUÇAS ──
   {
-    id: 20, cat: 'cozinha', name: 'Frigideira Elétrica Philco Redstone Definitive 1.7L',
-    price: 'A consultar', note: 'Cor Cinza/Vermelho · PPH240AFR',
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_817631-MLU73406540673_122023-F.webp',
-    links: [{ label: '🛒 Mercado Livre', url: 'https://www.mercadolivre.com.br/frigideira-philco-17l-redstone-definitive-pph240afr-cor-cinzavermelho/p/MLB60090335' }],
+    id: 2, cat: 'eletrodomesticos', name: 'Lava-Louças 10 Serviços (opção 1)',
+    price: 'A consultar', note: 'Ver opções de voltagem no link',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2sPNyiu' }],
     bought: false, splitOpen: false, names: []
   },
   {
-    id: 21, cat: 'cozinha', name: 'Kit Frigideiras RedSilver – Kit 1 (2 itens)',
-    price: 'A consultar', note: 'Kit completo de frigideiras RedSilver',
-    img: 'https://redsilverpanelas.com/ecommerce/media/catalog/product/cache/f87ef5a43f4b0f5d4d8d06e79ef95daf/k/i/kit1_redsilver.jpg',
+    id: 3, cat: 'eletrodomesticos', name: 'Lava-Louças Brastemp BLF10B 10 Serviços Cor Inox',
+    price: 'R$ 2.839,00', note: '127V',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2XxRUhR' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 4, cat: 'eletrodomesticos', name: 'Lava-Louças Electrolux 10 Serviços Inox — Lava & Seca 50min LS08E Display Digital',
+    price: 'R$ 3.099,00', note: '220V',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1PasX3e' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 5, cat: 'eletrodomesticos', name: 'Lava-Louças Midea 14 Serviços Preta',
+    price: 'R$ 2.882,00', note: 'Cor preta',
+    img: '',
+    links: [{ label: '🛒 Magazine Luiza', url: 'https://www.magazineluiza.com.br/lava-loucas-14-servicos-preta-midea/p/eh0aa5add5/ed/l14s/?seller_id=mideacarrier' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── ELETRÔNICOS — ROBÔ ASPIRADOR ──
+  {
+    id: 6, cat: 'eletronicos', name: 'Robô Aspirador Xiaomi S20',
+    price: 'A consultar', note: 'Modelo Xiaomi S20',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1zNzqp9' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 7, cat: 'eletronicos', name: 'Robô Aspirador Xiaomi',
+    price: 'A consultar', note: 'Disponível em 2 lojas — escolha a melhor opção',
+    img: '',
+    links: [
+      { label: '🛒 Mercado Livre', url: 'https://meli.la/2bk8hJ3' },
+      { label: '🛒 Amazon', url: 'https://amzn.to/3NrW5Oa' }
+    ],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 8, cat: 'eletronicos', name: 'Robô Aspirador Xiaomi Robot Vacuum X20 Pro',
+    price: 'A consultar', note: 'Modelo X20 Pro',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1Bm5QWd' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── SOFÁ ──
+  {
+    id: 9, cat: 'moveis', name: 'Sofá para Sala',
+    price: 'A definir em loja', note: 'Iremos em lojas físicas para escolher o melhor modelo pessoalmente',
+    img: '',
+    links: [],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── PAINEL TV ──
+  {
+    id: 10, cat: 'moveis', name: 'Painel TV até 60" Ripado com Nichos — Bento Freijó Off White (DJ Móveis)',
+    price: 'A consultar', note: 'DJ Móveis · Off White',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1rY6MGg' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 11, cat: 'moveis', name: 'Painel Suspenso TV 60" — Bento Freijó Off White (DJ Móveis)',
+    price: 'A consultar', note: 'DJ Móveis · Suspenso',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2zoZDBM' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 12, cat: 'moveis', name: 'Painel TV até 60" Ripado com Nichos — Bento Freijó Cinza (DJ Móveis)',
+    price: 'A consultar', note: 'DJ Móveis · Cinza',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1rDkJaZ' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 13, cat: 'moveis', name: 'Painel de TV Roma com Nicho Suspenso — Moderno',
+    price: 'A consultar', note: 'Design moderno suspenso',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/21cUVnA' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── KIT FAQUEIRO / FACAS ──
+  {
+    id: 14, cat: 'cozinha', name: 'Jogo de Facas Plenus 9 Peças — Aço Inox e Cabos Polipropileno Preto (Tramontina)',
+    price: 'A consultar', note: 'Tramontina · 9 peças',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1un9aFZ' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 15, cat: 'cozinha', name: 'Jogo de Facas Laguiole Inox com Cepo de Madeira 6 Peças Luxo Preto (La Tour)',
+    price: 'A consultar', note: 'La Tour · Cepo de madeira · 6 peças',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1n22E2c' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── BATEDEIRA ──
+  {
+    id: 16, cat: 'eletrodomesticos', name: 'Batedeira Arno com Pedestal — Movimento Planetário Preta',
+    price: 'A consultar', note: 'Movimento planetário · Cor preta',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2zcsndo' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── MIXER ──
+  {
+    id: 17, cat: 'eletrodomesticos', name: 'Mixer Turbo 3 em 1 — 1000W, 5 Velocidades, Preto',
+    price: 'A consultar', note: '3 em 1 · 1000W · 5 velocidades',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/22aA9qB' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── LIQUIDIFICADOR ──
+  {
+    id: 18, cat: 'eletrodomesticos', name: 'Liquidificador Arno Power Max 1000 — 3.1L, 2200W, 15 Velocidades, Preto',
+    price: 'A consultar', note: '3.1L · 2200W · 15 velocidades',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1CRVumf' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 19, cat: 'eletrodomesticos', name: 'Liquidificador WAP WB2000 — 2L, 1000W, Copo de Vidro, Velocidade Variável',
+    price: 'A consultar', note: '2L · 220V · copo de vidro',
+    img: '',
+    links: [{ label: '🛒 Amazon', url: 'https://www.amazon.com.br/WAP-Liquidificador-WB2000-Velocidade-Vari%C3%A1vel/dp/B0DCP6WMQH/' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── VENTILADOR ──
+  {
+    id: 20, cat: 'eletrodomesticos', name: 'Ventilador de Chão',
+    price: 'A consultar', note: 'Ver modelo no link',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1kXCCzL' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── FRIGIDEIRAS ──
+  {
+    id: 21, cat: 'cozinha', name: 'Frigideira Elétrica Philco Redstone Definitive 1.7L — Cinza/Vermelho',
+    price: 'A consultar', note: 'PPH240AFR · 1.7L',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2uSvYEn' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 22, cat: 'cozinha', name: 'Kit Frigideiras RedSilver — Kit 1 (2 itens)',
+    price: 'A consultar', note: 'Kit completo RedSilver',
+    img: '',
     links: [{ label: '🛒 RedSilver', url: 'https://redsilverpanelas.com/ecommerce/kit/kit-1' }],
     bought: false, splitOpen: false, names: []
   },
+  // ── CHALEIRA ──
   {
-    id: 22, cat: 'eletrodomesticos', name: 'Kit Ferro de Passar com Tábua',
-    price: 'A consultar', note: 'Kit completo: ferro + tábua de passar roupa',
+    id: 23, cat: 'eletrodomesticos', name: 'Chaleira Elétrica',
+    price: 'A consultar', note: 'Ver modelo no link',
     img: '',
-    links: [],
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2D2r2Es' }],
     bought: false, splitOpen: false, names: []
   },
+  // ── FAQUEIRO/TALHERES ──
   {
-    id: 23, cat: 'cozinha', name: 'Faqueiro Brinox Lyon 36 Peças Aço Inox',
+    id: 24, cat: 'cozinha', name: 'Faqueiro Brinox Lyon 36 Peças — Aço Inox',
     price: 'A consultar', note: '36 peças · Aço inox',
-    img: 'https://m.media-amazon.com/images/I/71EWkH8mNUL._AC_SX679_.jpg',
+    img: '',
     links: [{ label: '🛒 Amazon', url: 'https://www.amazon.com.br/dp/B07YN1T44F' }],
     bought: false, splitOpen: false, names: []
   },
+  // ── APARELHO DE JANTAR ──
   {
-    id: 24, cat: 'cama_banho', name: 'Kit Jogo de Cama Completo',
-    price: 'A consultar', note: 'Lençol + fronha + cobre-leito completo',
+    id: 25, cat: 'cozinha', name: 'Aparelho de Jantar 10 Peças Porcelana — Flamingo Oxford Sofia Ouro',
+    price: 'A consultar', note: 'Porcelana · 10 peças · Oxford',
     img: '',
-    links: [],
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2MYrK2j' }],
     bought: false, splitOpen: false, names: []
   },
   {
-    id: 25, cat: 'cama_banho', name: 'Kit Toalha de Banho e Rosto',
-    price: 'A consultar', note: 'Jogo completo de toalhas',
+    id: 26, cat: 'cozinha', name: 'Jogo de Jantar 10 Peças — Ryo Maresia',
+    price: 'A consultar', note: '10 peças · Ryo Maresia',
     img: '',
-    links: [],
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1CkXZQX' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── JOGO DE SOBREMESA ──
+  {
+    id: 27, cat: 'cozinha', name: 'Jogo 6 Taças de Sobremesa Cameratta 257ml — Gamma',
+    price: 'A consultar', note: '6 taças · 257ml',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/27n5gQ5' }],
     bought: false, splitOpen: false, names: []
   },
   {
-    id: 26, cat: 'cozinha', name: 'Jogo de Sobremesa',
-    price: 'A consultar', note: 'Conjunto completo para sobremesa',
+    id: 28, cat: 'cozinha', name: 'Conjunto de 6 Pratos Sobremesa 21,5cm — Ryo Maresia',
+    price: 'A consultar', note: '6 pratos · 21,5cm',
     img: '',
-    links: [],
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2tWyu2J' }],
     bought: false, splitOpen: false, names: []
   },
   {
-    id: 27, cat: 'cozinha', name: 'Aparelho de Jantar Completo',
-    price: 'A consultar', note: 'Conjunto completo para jantar',
+    id: 29, cat: 'cozinha', name: 'Jogo de Sobremesa de Vidro 7 Peças — Doces, Sorvete, Toffee',
+    price: 'A consultar', note: '7 peças em vidro',
     img: '',
-    links: [],
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/26p8r8b' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── KIT TOALHA ──
+  {
+    id: 30, cat: 'cama_banho', name: 'Jogo de Banhão 5 Peças Unika Branco — Karsten Cor U Lisa',
+    price: 'A consultar', note: 'Karsten · 5 toalhas · Branco',
+    img: '',
+    links: [
+      { label: '🛒 Mercado Livre 1', url: 'https://meli.la/1QDBfyc' },
+      { label: '🛒 Mercado Livre 2', url: 'https://meli.la/1eXSBJN' }
+    ],
     bought: false, splitOpen: false, names: []
   },
   {
-    id: 28, cat: 'cozinha', name: 'Jogo de Frigideiras Completo',
-    price: 'A consultar', note: 'Conjunto de frigideiras variados tamanhos',
+    id: 31, cat: 'cama_banho', name: 'Jogo 5 Toalhas Gigantes Banhão Lumina 100% Algodão — Karsten',
+    price: 'A consultar', note: '100% algodão · 5 toalhas gigantes',
     img: '',
-    links: [],
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1y1GaXS' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── KIT JOGO DE CAMA ──
+  {
+    id: 32, cat: 'cama_banho', name: 'Jogo de Cama Casal 4 Peças 100% Algodão — Karsten Tom 200 Fios',
+    price: 'A consultar', note: 'Karsten · 200 fios · 100% algodão',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/12M2Mky' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 33, cat: 'cama_banho', name: 'Colcha Casal Karsten Percal 160 Fios 100% Algodão — Cobre-leito',
+    price: 'A consultar', note: 'Karsten · 160 fios',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2va3kdz' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 34, cat: 'cama_banho', name: 'Kit Colcha Casal Karsten 3 Peças Arturo Matelassado — Bege Giz',
+    price: 'A consultar', note: 'Karsten · Matelassado · 3 peças',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/11asLKG' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── TÁBUA DE PASSAR ──
+  {
+    id: 35, cat: 'eletrodomesticos', name: 'Tábua de Passar Roupa com Cômoda e Prateleiras — Bela Store',
+    price: 'A consultar', note: 'Com cômoda e prateleiras',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1ExFnZd' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 36, cat: 'eletrodomesticos', name: 'Kit Ferro a Vapor Black+Decker 127V + Tábua de Passar Roupa',
+    price: 'A consultar', note: 'Black+Decker · 127V · kit completo',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1EA6Qrs' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── BOLEIRA ──
+  {
+    id: 37, cat: 'cozinha', name: 'Boleira de Vidro com Pé e Cúpula para Bolo/Torta Luxo — Alira',
+    price: 'A consultar', note: 'Vidro com cúpula · Alira',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1VSo6kC' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── JOGO DE XÍCARA ──
+  {
+    id: 38, cat: 'cozinha', name: 'Jogo de 6 Xícaras Grandes 200ml com Pires — Unni Brisa Oxford',
+    price: 'A consultar', note: '6 xícaras · 200ml · Oxford',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/14jxJhJ' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── JOGO DE TAÇA ──
+  {
+    id: 39, cat: 'cozinha', name: 'Jogo 6 Taças de Cristal Titanium Vinho Tinto 560ml — Xtra Bohemia',
+    price: 'A consultar', note: '6 taças · 560ml · Bohemia',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/24ZzcPH' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 40, cat: 'cozinha', name: 'Jogo 6 Taças Grande Água Vidro Diamond Transparente Luxo',
+    price: 'A consultar', note: '6 taças · vidro transparente',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1Wi8gdn' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 41, cat: 'cozinha', name: 'Kit Jarra de Vidro 1,2L Diamond + 6 Taças 330ml — Conjunto Luxo',
+    price: 'A consultar', note: 'Jarra + 6 taças · 330ml',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/267P5ot' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── JOGO DE CADEIRA ──
+  {
+    id: 42, cat: 'moveis', name: 'Kit 2 Cadeiras Fibra Sintética com Braços Marrom — Área Externa/Varanda/Jardim',
+    price: 'A consultar', note: 'Fibra sintética · Resistente · Marrom · Kit com 2',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/21Jx4MC' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 43, cat: 'moveis', name: 'Kit 4 Cadeiras Fibra Sintética com Braços Marrom — Área Externa/Varanda/Jardim',
+    price: 'A consultar', note: 'Fibra sintética · Resistente · Marrom · Kit com 4',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/12PqT3z' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── MULTIUSO ──
+  {
+    id: 44, cat: 'organizacao', name: 'Armário para Lavanderia 60x160 Multiuso 2 Portas — Despensa',
+    price: 'A consultar', note: '2 portas · Multiuso',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1e9HA3s' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── SAPATEIRA ──
+  {
+    id: 45, cat: 'organizacao', name: 'Sapateira Armário Organizador 2 Portas — Branco',
+    price: 'A consultar', note: '2 portas · Branco',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2VYzv2R' }],
+    bought: false, splitOpen: false, names: []
+  },
+  // ── FRUTEIRA ──
+  {
+    id: 46, cat: 'cozinha', name: 'Balcão Fruteira com Suporte para Filtro — Organizador Cozinha com Pés',
+    price: 'A consultar', note: 'Com suporte para filtro de café',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/1HTQ9vn' }],
+    bought: false, splitOpen: false, names: []
+  },
+  {
+    id: 47, cat: 'cozinha', name: 'Balcão Fruteira Isis 2 Portas 1 Gaveta',
+    price: 'A consultar', note: '2 portas · 1 gaveta',
+    img: '',
+    links: [{ label: '🛒 Mercado Livre', url: 'https://meli.la/2dxorLk' }],
     bought: false, splitOpen: false, names: []
   }
 ];
@@ -731,13 +1120,15 @@ const cats = {
   cozinha:          { label: 'Cozinha',            icon: '🍳', color: '#E8D4B8' },
   moveis:           { label: 'Móveis & Decoração', icon: '🛋️', color: '#D4E8C8' },
   cama_banho:       { label: 'Cama & Banho',       icon: '🛏️', color: '#E8C8D4' },
+  organizacao:      { label: 'Organização',        icon: '🗄️', color: '#D8D0E8' },
 };
 
 let activeCat = 'all';
 let showOnlyAvailable = false;
+let currentUploadId = null;
 
 function save() {
-  localStorage.setItem('wedding_gifts', JSON.stringify(gifts));
+  localStorage.setItem('wedding_gifts_v2', JSON.stringify(gifts));
 }
 
 function toggleBought(id) {
@@ -794,6 +1185,34 @@ function filterItems() {
   render();
 }
 
+// ===================== MANUAL PHOTO UPLOAD =====================
+function triggerPhotoUpload(id) {
+  currentUploadId = id;
+  document.getElementById('photoUploadInput').click();
+}
+
+document.getElementById('photoUploadInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file || currentUploadId === null) return;
+
+  if (file.size > 3 * 1024 * 1024) {
+    alert('Por favor, escolha uma imagem menor que 3MB.');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const g = gifts.find(x => x.id === currentUploadId);
+    if (g) {
+      g.img = evt.target.result; // base64 data URL
+      save();
+      render();
+    }
+  };
+  reader.readAsDataURL(file);
+  e.target.value = ''; // reset input
+});
+
 function addNewItem() {
   const name = document.getElementById('newName').value.trim();
   if (!name) { alert('Por favor, insira o nome do presente.'); return; }
@@ -802,7 +1221,7 @@ function addNewItem() {
     cat: document.getElementById('newCat').value,
     name,
     price: document.getElementById('newPrice').value.trim() || 'A consultar',
-    note: document.getElementById('newOptions').value.trim() + ' ' + document.getElementById('newNote').value.trim(),
+    note: (document.getElementById('newOptions').value.trim() + ' ' + document.getElementById('newNote').value.trim()).trim(),
     img: document.getElementById('newImg').value.trim(),
     links: document.getElementById('newLink').value.trim()
       ? [{ label: '🛒 Ver produto', url: document.getElementById('newLink').value.trim() }]
@@ -864,8 +1283,8 @@ function render() {
       card.className = 'card' + (g.bought ? ' purchased' : '');
 
       const imgHtml = g.img
-        ? `<div class="card-img"><img src="${g.img}" alt="${g.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="placeholder" style="display:none">${cats[g.cat].icon}</div></div>`
-        : `<div class="card-img"><div class="placeholder">${cats[g.cat].icon}</div></div>`;
+        ? `<div class="card-img"><img src="${g.img}" alt="${g.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="placeholder" style="display:none">${cats[g.cat].icon}</div><button class="photo-upload-btn" onclick="triggerPhotoUpload(${g.id})">📷 Trocar foto</button></div>`
+        : `<div class="card-img"><div class="placeholder">${cats[g.cat].icon}</div><button class="photo-upload-btn" onclick="triggerPhotoUpload(${g.id})">📷 Adicionar foto</button></div>`;
 
       const linksHtml = g.links.map(l =>
         `<a class="btn-link" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
