@@ -510,6 +510,45 @@
 <button onclick="exportWithPhotos()" title="Baixar site com fotos" style="position:fixed;bottom:24px;right:24px;background:var(--green-deep);color:var(--green-soft);border:none;border-radius:50px;padding:10px 16px;font-family:Jost;font-size:0.75rem;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.25);z-index:9998;">⬇️ Exportar</button>
 <input type="file" id="photoUploadInput" accept="image/*">
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, setDoc, onSnapshot, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBQioBukYNUIVp7L99Fy2XJbmM6w7MkGSc",
+    authDomain: "lista-de-casamento-87fb2.firebaseapp.com",
+    projectId: "lista-de-casamento-87fb2",
+    storageBucket: "lista-de-casamento-87fb2.firebasestorage.app",
+    messagingSenderId: "260498124494",
+    appId: "1:260498124494:web:ca496df4595b04d033ea9f",
+    measurementId: "G-Q3THTVP3B2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.__fsSetGiftStatus = function (id, data) {
+    return setDoc(doc(db, 'giftStatus', String(id)), {
+      bought: !!data.bought,
+      boughtBy: data.boughtBy || '',
+      names: data.names || [],
+      boughtAt: data.bought ? serverTimestamp() : null
+    }, { merge: true });
+  };
+
+  window.__fsSubscribe = function (callback) {
+    return onSnapshot(collection(db, 'giftStatus'), function (snap) {
+      const statuses = {};
+      snap.forEach(function (d) { statuses[d.id] = d.data(); });
+      callback(statuses);
+    }, function (err) {
+      console.error('Firestore sync error:', err);
+    });
+  };
+
+  document.dispatchEvent(new Event('firebase-ready'));
+</script>
+
 <script>
 // ===================== PIX COPY =====================
 function copyPix(key, btn) {
@@ -537,8 +576,15 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000); updateCountdown();
 
+// ===================== HTML ESCAPE =====================
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : String(str);
+  return div.innerHTML;
+}
+
 // ===================== DATA =====================
-let gifts = JSON.parse(localStorage.getItem('wedding_gifts_v2') || 'null') || [
+let gifts = JSON.parse(localStorage.getItem('wedding_gifts_v3') || 'null') || [
   // ── COZINHA ──
     // ── ELETRODOMÉSTICOS — LAVA-LOUÇAS ──
   {
@@ -1040,9 +1086,25 @@ let currentUploadId = null;
 
 function save() { localStorage.setItem('wedding_gifts_v3', JSON.stringify(gifts)); }
 
+function syncGiftStatus(g) {
+  if (!window.__fsSetGiftStatus) return;
+  window.__fsSetGiftStatus(g.id, { bought: !!g.bought, boughtBy: g.boughtBy || '', names: g.names || [] })
+    .catch(function () { alert('Não foi possível salvar sua ação. Verifique sua internet e tente novamente.'); });
+}
+
 function toggleBought(id) {
   const g = gifts.find(x => x.id === id);
-  if (g) { g.bought = !g.bought; save(); render(); }
+  if (!g) return;
+  if (!g.bought) {
+    const name = prompt('Para marcar como comprado, informe seu nome (assim o casal sabe quem comprou):');
+    if (!name || !name.trim()) return;
+    g.bought = true; g.boughtBy = name.trim();
+  } else {
+    if (!confirm('Deseja desmarcar "' + g.name + '" como comprado?')) return;
+    g.bought = false; g.boughtBy = '';
+  }
+  syncGiftStatus(g);
+  save(); render();
 }
 function toggleSplit(id) {
   const g = gifts.find(x => x.id === id);
@@ -1061,6 +1123,7 @@ function addName(id) {
     g.names = g.names || [];
     g.names.push({ nome: nameInp.value.trim(), whats: whatsInp.value.trim() });
     nameInp.value = ''; whatsInp.value = '';
+    syncGiftStatus(g);
     save(); updateNamesOutput(id, g.names);
   }
 }
@@ -1069,10 +1132,10 @@ function updateNamesOutput(id, names) {
   if (!out) return;
   if (!names || names.length === 0) { out.innerHTML = ''; return; }
   out.innerHTML = names.map(n => {
-    if (typeof n === 'string') return '<div style="padding:4px 0;font-size:0.72rem;color:var(--green-dark)">👤 ' + n + '</div>';
+    if (typeof n === 'string') return '<div style="padding:4px 0;font-size:0.72rem;color:var(--green-dark)">👤 ' + escapeHtml(n) + '</div>';
     const whatsLink = 'https://wa.me/55' + n.whats.replace(/\D/g, '');
     return '<div style="padding:4px 0;font-size:0.72rem;color:var(--green-dark);display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
-      + '👤 <strong>' + n.nome + '</strong>'
+      + '👤 <strong>' + escapeHtml(n.nome) + '</strong>'
       + ' <a href="' + whatsLink + '" target="_blank" style="background:var(--green-dark);color:white;padding:2px 8px;border-radius:12px;font-size:0.65rem;text-decoration:none;white-space:nowrap">📱 WhatsApp</a>'
       + '</div>';
   }).join('');
@@ -1192,6 +1255,9 @@ function render() {
 
       const splitBtn = `<button class="badge badge-split" onclick="toggleSplit(${g.id})">👥 Dividir</button>`;
       const boughtBtn = `<button class="badge badge-bought" onclick="toggleBought(${g.id})">${g.bought ? '↩ Desmarcar' : '✓ Comprado'}</button>`;
+      const boughtByHtml = g.bought && g.boughtBy
+        ? `<div class="card-options" style="color:var(--green-dark);font-weight:600">✓ Comprado por ${escapeHtml(g.boughtBy)}</div>`
+        : '';
       const namesHtml = `<div class="names-list ${g.splitOpen ? 'open' : ''}" id="names-${g.id}">
         <label>Quer dividir este presente? Deixe seu nome e WhatsApp:</label>
         <input type="text" placeholder="Seu nome" id="name-inp-${g.id}" style="margin-bottom:4px">
@@ -1209,6 +1275,7 @@ function render() {
           <div class="card-name">${g.name}</div>
           <div class="card-price ${isNoPrice ? 'no-price' : ''}">${g.price || 'A consultar'}</div>
           ${(g.note||'').trim() ? `<div class="card-options">${g.note.trim()}</div>` : ''}
+          ${boughtByHtml}
         </div>
         ${linkBtn}
         <div class="card-actions">${splitBtn}${boughtBtn}</div>
@@ -1223,6 +1290,28 @@ function render() {
     if (g.names && g.names.length > 0) updateNamesOutput(g.id, g.names);
   });
 }
+
+// ===================== FIRESTORE SYNC =====================
+function mergeGiftStatuses(statuses) {
+  gifts.forEach(g => {
+    const s = statuses[String(g.id)];
+    if (s) {
+      g.bought = !!s.bought;
+      g.boughtBy = s.boughtBy || '';
+      g.names = s.names || [];
+    }
+  });
+}
+function startFirestoreSync() {
+  if (!window.__fsSubscribe) return;
+  window.__fsSubscribe(function (statuses) {
+    mergeGiftStatuses(statuses);
+    render();
+  });
+}
+if (window.__fsSubscribe) { startFirestoreSync(); }
+else { document.addEventListener('firebase-ready', startFirestoreSync); }
+
 render();
 </script>
 </body>
