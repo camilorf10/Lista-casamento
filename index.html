@@ -3,7 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="build-version" content="2026-07-08T11-30-00Z">
 <title>Itany & Camilo — Lista de Presentes</title>
+<script>
+(function() {
+  if (sessionStorage.getItem('freshnessChecked')) return;
+  var current = document.querySelector('meta[name="build-version"]').content;
+  fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { return r.text(); })
+    .then(function (v) {
+      v = v.trim();
+      sessionStorage.setItem('freshnessChecked', '1');
+      if (v && v !== current) {
+        location.href = location.pathname + '?_r=' + Date.now();
+      }
+    })
+    .catch(function () {});
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
