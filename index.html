@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="build-version" content="2026-07-08T11-30-00Z">
+<meta name="build-version" content="2026-07-08T11-35-24Z">
 <title>Itany & Camilo — Lista de Presentes</title>
 <script>
 (function() {
@@ -1071,7 +1071,7 @@ function toggleBought(id) {
   const g = gifts.find(x => x.id === id);
   if (!g) return;
   if (!g.bought) {
-    const name = prompt('Para marcar como comprado, informe seu nome (assim o casal sabe quem comprou):');
+    const name = prompt('Informe seu nome: isso é para confirmarmos que o presente já foi comprado, evitando que outro convidado compre o mesmo item em duplicidade.');
     if (!name || !name.trim()) return;
     g.bought = true; g.boughtBy = name.trim();
   } else {
