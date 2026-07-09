@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="build-version" content="2026-07-08T11-35-24Z">
+<meta name="build-version" content="2026-07-09T15-01-23Z">
 <title>Itany & Camilo — Lista de Presentes</title>
 <script>
 (function() {
@@ -1229,7 +1229,7 @@ function render() {
         : '';
 
       const splitBtn = `<button class="badge badge-split" onclick="toggleSplit(${g.id})">👥 Dividir</button>`;
-      const boughtBtn = `<button class="badge badge-bought" onclick="toggleBought(${g.id})">${g.bought ? '↩ Desmarcar' : '✓ Comprado'}</button>`;
+      const boughtBtn = `<button class="badge badge-bought" onclick="toggleBought(${g.id})">${g.bought ? '↩ Desmarcar' : 'COMPRAR clique aqui'}</button>`;
       const boughtByHtml = g.bought && g.boughtBy
         ? `<div class="card-options" style="color:var(--green-dark);font-weight:600">✓ Comprado por ${escapeHtml(g.boughtBy)}</div>`
         : '';
