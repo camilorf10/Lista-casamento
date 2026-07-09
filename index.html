@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="build-version" content="2026-07-09T15-08-09Z">
+<meta name="build-version" content="2026-07-09T15-18-39Z">
 <title>Itany & Camilo — Lista de Presentes</title>
 <script>
 (function() {
-  if (sessionStorage.getItem('freshnessChecked')) return;
   var current = document.querySelector('meta[name="build-version"]').content;
+  var lastReloadedFor = sessionStorage.getItem('reloadedForVersion');
   fetch('version.txt?_=' + Date.now(), { cache: 'no-store' })
     .then(function (r) { return r.text(); })
     .then(function (v) {
       v = v.trim();
-      sessionStorage.setItem('freshnessChecked', '1');
-      if (v && v !== current) {
+      if (v && v !== current && v !== lastReloadedFor) {
+        sessionStorage.setItem('reloadedForVersion', v);
         location.href = location.pathname + '?_r=' + Date.now();
       }
     })
@@ -1225,7 +1225,7 @@ function render() {
         : `<div class="card-img"><div class="placeholder">${cats[g.cat].icon}</div><button class="photo-upload-btn" onclick="triggerPhotoUpload(${g.id})">📷 Foto</button></div>`;
 
       const linkBtn = g.links && g.links.length > 0
-        ? g.links.map(l => `<a class="btn-presentear" href="${l.url}" target="_blank" rel="noopener">Presentear</a>`).join('')
+        ? g.links.map(l => `<a class="btn-presentear" href="${l.url}" target="_blank" rel="noopener">Verificar no site</a>`).join('')
         : '';
 
       const splitBtn = `<button class="badge badge-split" onclick="toggleSplit(${g.id})">👥 Dividir</button>`;
@@ -1244,12 +1244,11 @@ function render() {
       </div>`;
 
       const isNoPrice = !g.price || g.price === 'A consultar' || g.price === 'A definir em loja';
-      const priceText = (!g.price || g.price === 'A consultar') ? 'Por: verificar no site' : g.price;
 
       card.innerHTML = `${imgHtml}
         <div class="card-body">
           <div class="card-name">${g.name}</div>
-          <div class="card-price ${isNoPrice ? 'no-price' : ''}">${priceText}</div>
+          <div class="card-price ${isNoPrice ? 'no-price' : ''}">${g.price || 'A consultar'}</div>
           ${(g.note||'').trim() ? `<div class="card-options">${g.note.trim()}</div>` : ''}
           ${boughtByHtml}
         </div>
