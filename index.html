@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="build-version" content="2026-07-09T15-01-23Z">
+<meta name="build-version" content="2026-07-09T15-08-09Z">
 <title>Itany & Camilo — Lista de Presentes</title>
 <script>
 (function() {
@@ -1244,11 +1244,12 @@ function render() {
       </div>`;
 
       const isNoPrice = !g.price || g.price === 'A consultar' || g.price === 'A definir em loja';
+      const priceText = (!g.price || g.price === 'A consultar') ? 'Por: verificar no site' : g.price;
 
       card.innerHTML = `${imgHtml}
         <div class="card-body">
           <div class="card-name">${g.name}</div>
-          <div class="card-price ${isNoPrice ? 'no-price' : ''}">${g.price || 'A consultar'}</div>
+          <div class="card-price ${isNoPrice ? 'no-price' : ''}">${priceText}</div>
           ${(g.note||'').trim() ? `<div class="card-options">${g.note.trim()}</div>` : ''}
           ${boughtByHtml}
         </div>
